@@ -1,10 +1,14 @@
-#include <SFML/Graphics.hpp>
+#include "GameState.h"
+#include "MainMenu.h"
+
+GameState CoreState;
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(400, 400), "SFML works!");
-	sf::CircleShape shape(200);
-	shape.setFillColor(sf::Color::Green);
+	sf::RenderWindow window(sf::VideoMode(800, 600), "Pong!");
+	
+	CoreState.SetWindow(&window);
+	CoreState.SetState(new MainMenu());
 
 	while (window.isOpen())
 	{
@@ -15,8 +19,10 @@ int main()
 				window.close();
 		}
 
-		window.clear();
-		window.draw(shape);
+		window.clear(sf::Color::Black);
+		CoreState.Update();
+		CoreState.Render();
+
 		window.display();
 	}
 
